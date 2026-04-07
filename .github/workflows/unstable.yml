@@ -16,7 +16,7 @@ jobs:
       - name: Install Build Dependencies
         run: |
           sudo apt update -y
-          sudo apt install \
+          sudo apt install -y \
             autoconf \
             binutils \
             bison \
@@ -66,7 +66,7 @@ jobs:
 
       - name: Install NTSync Header
         run: |
-          wget -O /usr/include/linux/ntsync.h \
+          sudo wget -O /usr/include/linux/ntsync.h \
             https://raw.githubusercontent.com/torvalds/linux/refs/tags/v6.14/include/uapi/linux/ntsync.h
 
       - name: Fetch Sources
