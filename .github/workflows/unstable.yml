@@ -10,24 +10,8 @@ jobs:
   build:
     runs-on: ubuntu-24.04
     steps:
-      - name: Install Headers
-        run: |
-          sudo wget -O /usr/include/linux/ntsync.h https://raw.githubusercontent.com/torvalds/linux/refs/tags/v6.14/include/uapi/linux/ntsync.h
-          sudo wget -O /usr/include/linux/userfaultfd.h https://raw.githubusercontent.com/torvalds/linux/refs/tags/v6.14/include/uapi/linux/userfaultfd.h
-
       - name: Checkout Repository
-        uses: actions/checkout@v3
-
-      - name: Fetch Sources
-        run: |
-          git clone https://gitlab.winehq.org/wine/wine.git --depth 1 \
-            --revision=${{ env.WINE_COMMIT }}
-
-      - name: Apply Patches
-        run: |
-          echo "INSTALL=${{ github.workspace }}/kombucha" >> $GITHUB_ENV
-
-          git -C wine apply "$GITHUB_WORKSPACE"/patches/${{ env.KOMBUCHA_VERSION }}/*.patch
+        uses: actions/checkout@v6
 
       - name: Install Build Dependencies
         run: |
@@ -35,9 +19,12 @@ jobs:
           sudo apt install \
             autoconf \
             binutils \
+            bison \
             build-essential \
             ccache \
+            flex \
             gettext \
+            git \
             libasound2-dev \
             libavcodec-dev \
             libavformat-dev \
@@ -74,18 +61,34 @@ jobs:
             libxrender-dev \
             mingw-w64 \
             ocl-icd-opencl-dev \
-            samba-dev
+            samba-dev \
+            wget
 
-      - name: Configure Ccache
-        uses: hendrikmuhs/ccache-action@v1.2
+      - name: Install NTSync Header
+        run: |
+          wget -O /usr/include/linux/ntsync.h \
+            https://raw.githubusercontent.com/torvalds/linux/refs/tags/v6.14/include/uapi/linux/ntsync.h
+
+      - name: Fetch Sources
+        run: |
+          git clone https://gitlab.winehq.org/wine/wine.git --depth 1 \
+            --revision=${{ env.WINE_COMMIT }}
+
+      - name: Apply Patches
+        run: |
+          echo "INSTALL=$GITHUB_WORKSPACE/kombucha" >> $GITHUB_ENV
+
+          git -C wine apply "$GITHUB_WORKSPACE"/patches/${{ env.KOMBUCHA_VERSION }}/*.patch
 
       - name: Configure Wine
         working-directory: wine
         run: |
+          export CC="ccache gcc"
+          export x86_64_CC="ccache x86_64-w64-mingw32-gcc"
+          export CFLAGS="-fno-lto -U_FORTIFY_SOURCE -O2 -pipe -g -fcf-protection -fstack-protector-strong -fstack-clash-protection"
+          export x86_64_CFLAGS="${CFLAGS}"
           mkdir -p ${{ env.INSTALL }}
           ./configure \
-            CC='ccache gcc' \
-            x86_64_CC='ccache x86_64-w64-mingw32-gcc' \
             --disable-tests \
             --disable-win16 \
             --enable-archs=x86_64 \
@@ -93,13 +96,16 @@ jobs:
             --with-mingw \
             --without-oss
 
+      - name: Configure Ccache
+        uses: hendrikmuhs/ccache-action@v1.2
+
       - name: Build Wine
         working-directory: wine
         run: make -j$(($(nproc) + 1))
 
       - name: Install Wine
         working-directory: wine
-        run: make install-lib LDCONFIG=/bin/true UPDATE_DESKTOP_DATABASE=/bin/true
+        run: make install-lib INSTALL_PROGRAM_FLAGS=-s
 
       - name: Publish
         env:
