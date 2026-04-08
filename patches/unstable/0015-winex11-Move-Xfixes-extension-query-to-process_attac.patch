@@ -1,8 +1,9 @@
-From 957ab9ff0a91164d19ea7183393bbeb275560e39 Mon Sep 17 00:00:00 2001
+From 39b6cc45dcce092f985f429e5e0d5f3b4c627b69 Mon Sep 17 00:00:00 2001
 From: effectsbot <eff3ctsb0t@gmail.com>
-Date: Wed, 1 Apr 2026 22:14:18 +0200
-Subject: [PATCH 15/23] winex11: Move Xfixes extension query to process_attach.
+Date: Sun, 5 Apr 2026 18:28:16 +0200
+Subject: [PATCH 15/21] winex11: Move Xfixes extension query to process_attach.
 
+Signed-off-by: effectsbot <eff3ctsb0t@gmail.com>
 ---
  dlls/winex11.drv/clipboard.c   | 26 ++------------
  dlls/winex11.drv/x11drv.h      |  2 ++

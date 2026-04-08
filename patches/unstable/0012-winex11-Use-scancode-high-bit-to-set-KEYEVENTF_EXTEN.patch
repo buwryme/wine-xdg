@@ -1,7 +1,7 @@
-From 70fcc423eb99c461778e3209c69e0c40e2e3ef1d Mon Sep 17 00:00:00 2001
+From c9f8a5140178b18c0c7e7db292e5867cf44687ea Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?R=C3=A9mi=20Bernon?= <rbernon@codeweavers.com>
 Date: Wed, 30 Nov 2022 18:46:00 +0100
-Subject: [PATCH 12/23] winex11: Use scancode high bit to set
+Subject: [PATCH 12/21] winex11: Use scancode high bit to set
  KEYEVENTF_EXTENDEDKEY flag.
 
 Wine-Bug: https://bugs.winehq.org/show_bug.cgi?id=30984

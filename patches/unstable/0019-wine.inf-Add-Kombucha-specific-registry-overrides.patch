@@ -1,7 +1,7 @@
-From 3eff80ae0d584349119e4d71c7849dcc11c3f9d4 Mon Sep 17 00:00:00 2001
+From 7a3768f784cad3fc007dcf8ec9892ad061cd39d6 Mon Sep 17 00:00:00 2001
 From: effectsbot <eff3ctsb0t@gmail.com>
 Date: Fri, 27 Feb 2026 19:43:49 +0100
-Subject: [PATCH 21/23] wine.inf: Add Kombucha-specific registry overrides
+Subject: [PATCH 19/21] wine.inf: Add Kombucha-specific registry overrides
 
 Signed-off-by: effectsbot <eff3ctsb0t@gmail.com>
 ---
@@ -9,7 +9,7 @@ Signed-off-by: effectsbot <eff3ctsb0t@gmail.com>
  1 file changed, 13 insertions(+)
 
 diff --git a/loader/wine.inf.in b/loader/wine.inf.in
-index b61e3e9..d1ce48e 100644
+index fc3f085..e2de2f3 100644
 --- a/loader/wine.inf.in
 +++ b/loader/wine.inf.in
 @@ -63,6 +63,7 @@ AddReg=\
@@ -20,7 +20,7 @@ index b61e3e9..d1ce48e 100644
      LicenseInformation,\
      MCI,\
      Misc,\
-@@ -1335,3 +1336,15 @@ InfFiles  = 17
+@@ -1338,3 +1339,15 @@ InfFiles  = 17
  NlsFiles  = 11
  SortFiles = 10,globalization\sorting
  WinmdFiles = 11,winmetadata
