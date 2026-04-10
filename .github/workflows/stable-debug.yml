@@ -85,7 +85,7 @@ jobs:
         run: |
           export CC="ccache gcc"
           export x86_64_CC="ccache x86_64-w64-mingw32-gcc"
-          export CFLAGS="-fno-lto -U_FORTIFY_SOURCE -O2 -pipe -g"
+          export CFLAGS="-fno-lto -U_FORTIFY_SOURCE -pipe -g"
           export x86_64_CFLAGS="${CFLAGS}"
           mkdir -p ${{ env.INSTALL }}
           ./configure \
