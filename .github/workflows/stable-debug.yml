@@ -85,7 +85,7 @@ jobs:
         run: |
           export CC="ccache gcc"
           export CROSSCC="ccache x86_64-w64-mingw32-gcc"
-          export CROSSCFLAGS="-fno-lto -U_FORTIFY_SOURCE -g -pipe"
+          export CROSSCFLAGS="-fno-lto -U_FORTIFY_SOURCE -g -pipe -msse4.1"
           export CFLAGS="${CROSSCFLAGS} -fcf-protection -fstack-protector-strong -fstack-clash-protection"
           mkdir -p ${{ env.INSTALL }}
           ./configure \
