@@ -87,6 +87,8 @@ jobs:
           export CROSSCC="ccache x86_64-w64-mingw32-gcc"
           export CROSSCFLAGS="-fno-lto -U_FORTIFY_SOURCE -g -pipe -msse4.1"
           export CFLAGS="${CROSSCFLAGS} -fcf-protection -fstack-protector-strong -fstack-clash-protection"
+          export CROSSLDFLAGS="-Wl,-g,--sort-common,--as-needed"
+          export LDFLAGS="${CROSSLDFLAGS} -Wl,-z,relro"
           mkdir -p ${{ env.INSTALL }}
           ./configure \
             --disable-tests \
