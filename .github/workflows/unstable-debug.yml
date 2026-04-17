@@ -5,7 +5,7 @@ permissions:
   pull-requests: read
 env:
   KOMBUCHA_VERSION: unstable-debug
-  WINE_COMMIT: 504683b22d3717e6ed073ed362c75c59a2e9d9c7
+  WINE_COMMIT: f051a28829e589b5cf025c574cb16fcf7aeb345a
 jobs:
   build:
     runs-on: ubuntu-24.04
