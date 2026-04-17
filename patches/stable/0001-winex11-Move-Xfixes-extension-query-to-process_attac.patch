@@ -1,7 +1,7 @@
-From 39b6cc45dcce092f985f429e5e0d5f3b4c627b69 Mon Sep 17 00:00:00 2001
+From cad2bc00cd33387237d0a928471ceb6588d4846f Mon Sep 17 00:00:00 2001
 From: effectsbot <eff3ctsb0t@gmail.com>
 Date: Sun, 5 Apr 2026 18:28:16 +0200
-Subject: [PATCH 15/21] winex11: Move Xfixes extension query to process_attach.
+Subject: [PATCH 1/7] winex11: Move Xfixes extension query to process_attach.
 
 Signed-off-by: effectsbot <eff3ctsb0t@gmail.com>
 ---
@@ -71,12 +71,12 @@ index b98fd3e..715cbce 100644
      TRACE("xfixes succesully initialized\n");
  #else
 diff --git a/dlls/winex11.drv/x11drv.h b/dlls/winex11.drv/x11drv.h
-index 011e1da..8f52ef2 100644
+index 9f38ceb..3cef492 100644
 --- a/dlls/winex11.drv/x11drv.h
 +++ b/dlls/winex11.drv/x11drv.h
-@@ -472,12 +472,14 @@ extern BOOL grab_fullscreen;
- extern int keyboard_layout;
- extern BOOL keyboard_scancode_detect;
+@@ -470,12 +470,14 @@ extern BOOL use_primary_selection;
+ extern BOOL use_system_cursors;
+ extern BOOL grab_fullscreen;
  extern BOOL usexcomposite;
 +extern BOOL use_xfixes;
  extern BOOL managed_mode;
@@ -90,7 +90,7 @@ index 011e1da..8f52ef2 100644
  extern Display *clipboard_display;
  
 diff --git a/dlls/winex11.drv/x11drv_main.c b/dlls/winex11.drv/x11drv_main.c
-index 1ac068a..256f9a2 100644
+index 1bdcd28..aa13739 100644
 --- a/dlls/winex11.drv/x11drv_main.c
 +++ b/dlls/winex11.drv/x11drv_main.c
 @@ -46,6 +46,7 @@
@@ -109,7 +109,7 @@ index 1ac068a..256f9a2 100644
  BOOL use_take_focus = TRUE;
  BOOL use_primary_selection = FALSE;
  BOOL use_system_cursors = TRUE;
-@@ -83,6 +85,7 @@ BOOL shape_layered_windows = TRUE;
+@@ -81,6 +83,7 @@ BOOL shape_layered_windows = TRUE;
  int copy_default_colors = 128;
  int alloc_system_colors = 256;
  int xrender_error_base = 0;
@@ -117,7 +117,7 @@ index 1ac068a..256f9a2 100644
  char *process_name = NULL;
  
  static x11drv_error_callback err_callback;   /* current callback for error */
-@@ -651,6 +654,63 @@ sym_not_found:
+@@ -565,6 +568,63 @@ sym_not_found:
  }
  #endif /* defined(SONAME_LIBXCOMPOSITE) */
  
@@ -181,7 +181,7 @@ index 1ac068a..256f9a2 100644
  static void init_visuals( Display *display, int screen )
  {
      int count;
-@@ -753,6 +813,9 @@ NTSTATUS __wine_unix_lib_init(void)
+@@ -667,6 +727,9 @@ NTSTATUS __wine_unix_lib_init(void)
      X11DRV_XF86VM_Init();
      /* initialize XRandR */
      X11DRV_XRandR_Init();

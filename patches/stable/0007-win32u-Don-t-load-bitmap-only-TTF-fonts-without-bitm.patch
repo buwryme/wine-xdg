@@ -1,7 +1,7 @@
-From 999d01cd78f88234b7440ee199a0db53f21b66b8 Mon Sep 17 00:00:00 2001
+From 05588a9c052368afccd2742aaffd5e469e5b78c8 Mon Sep 17 00:00:00 2001
 From: effectsbot <eff3ctsb0t@gmail.com>
 Date: Fri, 27 Feb 2026 23:55:05 +0100
-Subject: [PATCH 21/21] win32u: Don't load bitmap only TTF fonts without bitmap
+Subject: [PATCH 7/7] win32u: Don't load bitmap only TTF fonts without bitmap
  table.
 
 Rebased against 739ca45017f7385340d82c9f8c35716ca6466473 from Paul Gofman's original patch.
