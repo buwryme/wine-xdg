@@ -84,9 +84,9 @@ jobs:
         working-directory: wine
         run: |
           export CC="ccache gcc"
-          export x86_64_CC="ccache x86_64-w64-mingw32-gcc"
-          export CFLAGS="-fno-lto -U_FORTIFY_SOURCE -pipe -g"
-          export x86_64_CFLAGS="${CFLAGS}"
+          export CROSSCC="ccache x86_64-w64-mingw32-gcc"
+          export CROSSCFLAGS="-fno-lto -U_FORTIFY_SOURCE -g -pipe"
+          export CFLAGS="${CROSSCFLAGS} -fcf-protection -fstack-protector-strong -fstack-clash-protection"
           mkdir -p ${{ env.INSTALL }}
           ./configure \
             --disable-tests \
