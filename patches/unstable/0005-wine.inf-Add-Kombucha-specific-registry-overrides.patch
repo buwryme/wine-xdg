@@ -1,4 +1,4 @@
-From 5612e360b7883e92d05a66431a24270be6cf7b18 Mon Sep 17 00:00:00 2001
+From fb07527c223af7fb7577e5a0a9702881ea02a57f Mon Sep 17 00:00:00 2001
 From: effectsbot <eff3ctsb0t@gmail.com>
 Date: Fri, 27 Feb 2026 19:43:49 +0100
 Subject: [PATCH 5/7] wine.inf: Add Kombucha-specific registry overrides
@@ -9,7 +9,7 @@ Signed-off-by: effectsbot <eff3ctsb0t@gmail.com>
  1 file changed, 13 insertions(+)
 
 diff --git a/loader/wine.inf.in b/loader/wine.inf.in
-index fc3f085..e2de2f3 100644
+index aece31f..e5c6265 100644
 --- a/loader/wine.inf.in
 +++ b/loader/wine.inf.in
 @@ -63,6 +63,7 @@ AddReg=\
@@ -20,7 +20,7 @@ index fc3f085..e2de2f3 100644
      LicenseInformation,\
      MCI,\
      Misc,\
-@@ -1338,3 +1339,15 @@ InfFiles  = 17
+@@ -1339,3 +1340,15 @@ InfFiles  = 17
  NlsFiles  = 11
  SortFiles = 10,globalization\sorting
  WinmdFiles = 11,winmetadata
@@ -37,5 +37,5 @@ index fc3f085..e2de2f3 100644
 +HKCU,Software\Wine\AppDefaults\msedgewebview2.exe\DllOverrides,"dxgi",,"builtin"
 +HKCU,Software\Wine\Fonts\Replacements,"Arial",,"Liberation Sans"
 -- 
-2.53.0
+2.54.0
 

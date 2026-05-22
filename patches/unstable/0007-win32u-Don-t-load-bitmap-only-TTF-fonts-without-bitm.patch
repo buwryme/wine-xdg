@@ -1,4 +1,4 @@
-From 05588a9c052368afccd2742aaffd5e469e5b78c8 Mon Sep 17 00:00:00 2001
+From 43139e134a6f42d8a70f42270cbdff4a97df69ce Mon Sep 17 00:00:00 2001
 From: effectsbot <eff3ctsb0t@gmail.com>
 Date: Fri, 27 Feb 2026 23:55:05 +0100
 Subject: [PATCH 7/7] win32u: Don't load bitmap only TTF fonts without bitmap
@@ -56,5 +56,5 @@ index a660b16..929f71c 100644
      }
      else
 -- 
-2.53.0
+2.54.0
 
