@@ -1,14 +1,23 @@
-name: Build Kombucha Unstable-Debug
+name: Build Kombucha
 on: workflow_dispatch
 permissions:
   contents: write
   pull-requests: read
-env:
-  KOMBUCHA_VERSION: unstable-debug
-  WINE_COMMIT: 2cac6ccf33c0807f374dc96f5a20e35a2da86157
 jobs:
   build:
     runs-on: ubuntu-24.04
+    matrix:
+      type: [stable, unstable]
+      opt: [release, debug]
+      include:
+        - type: stable
+          commit: 6e073d28dee3af7f4c965daec94644e0f9f92727 
+        - type: unstable
+          commit: 2cac6ccf33c0807f374dc96f5a20e35a2da86157
+        - opt: debug
+          flag: -g
+        - opt: release
+          flag: -O2
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
@@ -78,16 +87,16 @@ jobs:
         run: |
           echo "INSTALL=$GITHUB_WORKSPACE/kombucha" >> $GITHUB_ENV
 
-          git -C wine apply "$GITHUB_WORKSPACE"/patches/${{ env.KOMBUCHA_VERSION }}/*.patch
+          git -C wine apply "$GITHUB_WORKSPACE"/patches/${{ matrix.type }}/*.patch
 
       - name: Configure Wine
         working-directory: wine
         run: |
           export CC="ccache gcc"
           export CROSSCC="ccache x86_64-w64-mingw32-gcc"
-          export CROSSCFLAGS="-fno-lto -U_FORTIFY_SOURCE -g -pipe -msse4.1"
+          export CROSSCFLAGS="-fno-lto -U_FORTIFY_SOURCE ${{ matrix.flag }} -pipe -msse4.1"
           export CFLAGS="${CROSSCFLAGS} -fcf-protection -fstack-protector-strong -fstack-clash-protection"
-          export CROSSLDFLAGS="-Wl,-g,--sort-common,--as-needed"
+          export CROSSLDFLAGS="-Wl,-O1,--sort-common,--as-needed"
           export LDFLAGS="${CROSSLDFLAGS} -Wl,-z,relro"
           mkdir -p ${{ env.INSTALL }}
           ./configure \
@@ -114,7 +123,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          TAG="${{ env.KOMBUCHA_VERSION }}+$(date --utc +%Y%m%d%H%M%S)"
+          TAG="$(date --utc +%Y%m%d%H%M%S)"
+          if ! [ "${{ matrix.opt }}" = "release" ]; then
+            TAG="${{ matrix.opt }}-$TAG"
+          fi
+          TAG="${{ matrix.type }}-$TAG"
           NAME="kombucha-${TAG}"
 
           cd "${{ env.INSTALL }}"/..
