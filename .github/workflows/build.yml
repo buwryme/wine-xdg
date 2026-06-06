@@ -6,18 +6,19 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-24.04
-    matrix:
-      type: [stable, unstable]
-      opt: [release, debug]
-      include:
-        - type: stable
-          commit: 6e073d28dee3af7f4c965daec94644e0f9f92727 
-        - type: unstable
-          commit: 2cac6ccf33c0807f374dc96f5a20e35a2da86157
-        - opt: debug
-          flag: -g
-        - opt: release
-          flag: -O2
+    strategy:
+      matrix:
+        type: [stable, unstable]
+        opt: [release, debug]
+        include:
+          - type: stable
+            commit: 6e073d28dee3af7f4c965daec94644e0f9f92727 
+          - type: unstable
+            commit: 2cac6ccf33c0807f374dc96f5a20e35a2da86157
+          - opt: debug
+            flag: -g
+          - opt: release
+            flag: -O2
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
