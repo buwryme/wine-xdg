@@ -1,24 +1,25 @@
 name: Build Kombucha
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+    inputs:
+      patchset:
+        type: choice
+        options: 
+        - stable
+        - unstable
+      debug:
+        type: boolean
+        default: false
+      commit:
+        type: string
+        default: 6e073d28dee3af7f4c965daec94644e0f9f92727
 permissions:
   contents: write
   pull-requests: read
 jobs:
   build:
     runs-on: ubuntu-24.04
-    strategy:
-      matrix:
-        type: [stable, unstable]
-        opt: [release, debug]
-        include:
-          - type: stable
-            commit: 6e073d28dee3af7f4c965daec94644e0f9f92727 
-          - type: unstable
-            commit: 2cac6ccf33c0807f374dc96f5a20e35a2da86157
-          - opt: debug
-            flag: -g
-          - opt: release
-            flag: -O2
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v6
@@ -82,7 +83,7 @@ jobs:
       - name: Fetch Sources
         run: |
           git clone https://gitlab.winehq.org/wine/wine.git --depth 1 \
-            --revision=${{ env.WINE_COMMIT }}
+            --revision=${{ inputs.commit }}
 
       - name: Apply Patches
         run: |
@@ -95,7 +96,8 @@ jobs:
         run: |
           export CC="ccache gcc"
           export CROSSCC="ccache x86_64-w64-mingw32-gcc"
-          export CROSSCFLAGS="-fno-lto -U_FORTIFY_SOURCE ${{ matrix.flag }} -pipe -msse4.1"
+          export CROSSCFLAGS="-fno-lto -U_FORTIFY_SOURCE -pipe -msse4.1 "
+          export CROSSCFLAGS+="${{ inputs.patchset == 'stable' && '-O2' || '-g' }}"
           export CFLAGS="${CROSSCFLAGS} -fcf-protection -fstack-protector-strong -fstack-clash-protection"
           export CROSSLDFLAGS="-Wl,-O1,--sort-common,--as-needed"
           export LDFLAGS="${CROSSLDFLAGS} -Wl,-z,relro"
@@ -124,11 +126,7 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          TAG="$(date --utc +%Y%m%d%H%M%S)"
-          if ! [ "${{ matrix.opt }}" = "release" ]; then
-            TAG="${{ matrix.opt }}-$TAG"
-          fi
-          TAG="${{ matrix.type }}-$TAG"
+          TAG="${{ inputs.patchset }}${{inputs.debug && '-debug'}}+$(date --utc +%Y%m%d%H%M%S)"
           NAME="kombucha-${TAG}"
 
           cd "${{ env.INSTALL }}"/..
