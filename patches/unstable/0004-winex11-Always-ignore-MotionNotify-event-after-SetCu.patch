@@ -1,7 +1,7 @@
-From 143ee319635eb64812dce930cd5c894fe4814ebe Mon Sep 17 00:00:00 2001
+From e2d42fd40f2cb6f08ceb42b9d130677cb2c07a5e Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?R=C3=A9mi=20Bernon?= <rbernon@codeweavers.com>
 Date: Fri, 8 Sep 2023 14:24:11 +0200
-Subject: [PATCH 4/7] winex11: Always ignore MotionNotify event after
+Subject: [PATCH 4/9] winex11: Always ignore MotionNotify event after
  SetCursorPos.
 
 Signed-off-by: sewn <sewn@disroot.org>

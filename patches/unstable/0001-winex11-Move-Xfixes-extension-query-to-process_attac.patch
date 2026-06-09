@@ -1,7 +1,7 @@
-From c5ee1eccbd9b49a8410f7549ca485e963e341f3a Mon Sep 17 00:00:00 2001
+From db19a74e288e81ff9e697fdf61193ae6d70600d4 Mon Sep 17 00:00:00 2001
 From: effectsbot <eff3ctsb0t@gmail.com>
 Date: Sat, 23 May 2026 00:55:31 +0200
-Subject: [PATCH 1/7] winex11: Move Xfixes extension query to process_attach.
+Subject: [PATCH 1/9] winex11: Move Xfixes extension query to process_attach.
 
 Signed-off-by: effectsbot <eff3ctsb0t@gmail.com>
 ---
