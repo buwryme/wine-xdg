@@ -4,9 +4,9 @@ on:
     inputs:
       patchset:
         type: choice
-        options: 
-        - stable
-        - unstable
+        options:
+          - stable
+          - unstable
       debug:
         type: boolean
         default: false
@@ -89,7 +89,7 @@ jobs:
         run: |
           echo "INSTALL=$GITHUB_WORKSPACE/kombucha" >> $GITHUB_ENV
 
-          git -C wine apply "$GITHUB_WORKSPACE"/patches/${{ matrix.type }}/*.patch
+          git -C wine apply "$GITHUB_WORKSPACE"/patches/${{ inputs.patchset }}/*.patch
 
       - name: Configure Wine
         working-directory: wine
