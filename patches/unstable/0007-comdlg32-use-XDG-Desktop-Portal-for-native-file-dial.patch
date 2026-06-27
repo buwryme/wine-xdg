@@ -1,7 +1,7 @@
-From aedcd693028bb9b0fa5124e58e08c1fd8c300966 Mon Sep 17 00:00:00 2001
+From 2e203efc2a62d770627c197434952a60f0ce9ec8 Mon Sep 17 00:00:00 2001
 From: Alexander Wilms <f.alexander.wilms@outlook.com>
 Date: Sat, 28 Mar 2026 14:13:03 -0300
-Subject: [PATCH 8/9] comdlg32: use XDG Desktop Portal for native file dialogs
+Subject: [PATCH 7/8] comdlg32: use XDG Desktop Portal for native file dialogs
 
 Add XDG Desktop Portal integration for Wine file dialogs via D-Bus,
 routing IFileDialog, GetOpenFileNameW/A, GetSaveFileNameW/A and
@@ -894,7 +894,7 @@ index 9d57375..8d45407 100644
          return GetFileName31W(ofn, SAVE_DIALOG);
      else
 diff --git a/dlls/comdlg32/itemdlg.c b/dlls/comdlg32/itemdlg.c
-index c12ae22..2561d04 100644
+index 6e47cb1..15f0f0b 100644
 --- a/dlls/comdlg32/itemdlg.c
 +++ b/dlls/comdlg32/itemdlg.c
 @@ -21,6 +21,7 @@

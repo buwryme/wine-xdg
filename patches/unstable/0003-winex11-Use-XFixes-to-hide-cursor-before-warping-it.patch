@@ -1,7 +1,7 @@
-From de8858f9bff82c3257aa7b7df9719a5e5b7ffcfa Mon Sep 17 00:00:00 2001
+From 1e9001f5dcc8b217ccf4a178e526e4a52895a43e Mon Sep 17 00:00:00 2001
 From: =?UTF-8?q?R=C3=A9mi=20Bernon?= <rbernon@codeweavers.com>
 Date: Tue, 25 Jul 2023 10:38:35 +0200
-Subject: [PATCH 3/9] winex11: Use XFixes to hide cursor before warping it.
+Subject: [PATCH 3/8] winex11: Use XFixes to hide cursor before warping it.
 
 XWayland only allows warping the cursor if it is not visible. Fixes
 a regression from the periodic cursor sync removal.
@@ -14,7 +14,7 @@ Signed-off-by: sewn <sewn@disroot.org>
  3 files changed, 9 insertions(+)
 
 diff --git a/dlls/winex11.drv/mouse.c b/dlls/winex11.drv/mouse.c
-index f66ba63..2521743 100644
+index 5a4d52d..0e1dfdc 100644
 --- a/dlls/winex11.drv/mouse.c
 +++ b/dlls/winex11.drv/mouse.c
 @@ -51,6 +51,7 @@ MAKE_FUNCPTR(XcursorLibraryLoadCursor);
@@ -25,7 +25,7 @@ index f66ba63..2521743 100644
  #include "winreg.h"
  #include "wine/server.h"
  #include "wine/debug.h"
-@@ -1400,8 +1401,10 @@ BOOL X11DRV_SetCursorPos( INT x, INT y )
+@@ -1391,8 +1392,10 @@ BOOL X11DRV_SetCursorPos( INT x, INT y )
          return FALSE;
      }
  

@@ -1,7 +1,7 @@
-From db19a74e288e81ff9e697fdf61193ae6d70600d4 Mon Sep 17 00:00:00 2001
+From 1fb68331a1c3ceba0857cbbecf5b99e708d7cbd8 Mon Sep 17 00:00:00 2001
 From: effectsbot <eff3ctsb0t@gmail.com>
 Date: Sat, 23 May 2026 00:55:31 +0200
-Subject: [PATCH 1/9] winex11: Move Xfixes extension query to process_attach.
+Subject: [PATCH 1/8] winex11: Move Xfixes extension query to process_attach.
 
 Signed-off-by: effectsbot <eff3ctsb0t@gmail.com>
 ---
@@ -71,10 +71,10 @@ index ac098d9..0466573 100644
      TRACE("xfixes succesully initialized\n");
  #else
 diff --git a/dlls/winex11.drv/x11drv.h b/dlls/winex11.drv/x11drv.h
-index 3def37a..4198c0d 100644
+index 73d7782..aad3918 100644
 --- a/dlls/winex11.drv/x11drv.h
 +++ b/dlls/winex11.drv/x11drv.h
-@@ -471,12 +471,14 @@ extern BOOL use_primary_selection;
+@@ -484,12 +484,14 @@ extern BOOL use_primary_selection;
  extern BOOL use_system_cursors;
  extern BOOL grab_fullscreen;
  extern BOOL usexcomposite;

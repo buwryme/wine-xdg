@@ -1,7 +1,7 @@
-From d7aaba3866e0ba3bb67ca1cdaf0b3e1f63a7b1b8 Mon Sep 17 00:00:00 2001
+From b7fb2b85547118d7dda33fd51772c816ce5c0dc7 Mon Sep 17 00:00:00 2001
 From: karim_adli <karimri@protonmail.com>
 Date: Fri, 20 Feb 2026 22:21:33 +0300
-Subject: [PATCH 6/9] wineboot: Add WINEBOOT_HIDE_DIALOG environment variable
+Subject: [PATCH 5/8] wineboot: Add WINEBOOT_HIDE_DIALOG environment variable
 
 ---
  programs/wineboot/wineboot.c | 4 +++-
