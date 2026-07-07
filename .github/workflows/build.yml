@@ -1,4 +1,4 @@
-name: Build Kombucha
+name: Build Wine-XDG
 on:
   workflow_dispatch:
     inputs:
