@@ -1,7 +1,5 @@
-# Kombucha
+# Wine-XDG
 
-This repository serves as the place to fetch a customized Wine build for Vinegar.
+This repository serves to build Wine-XDG, a fork of Kombucha that simply adds XDG Desktop Portal integration (like file dialogs) to upstream Wine, and some Xwayland patches.
 
-Due to the fact that there are multiple issues with running Roblox Studio under
-Wine, some additional patches are necessary to improve the user experience, notably
-for fixing a bug related to cursor locking on Wayland-based desktops, among other things.
+Special thanks to Kombucha and the contributors of the patches they include!
